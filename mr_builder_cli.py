@@ -8,6 +8,7 @@ import argparse
 from src.mr_builder import MRBuilder
 from src.commit_formatter import CommitFormatter, CommitType
 from src.branch_manager import BranchManager
+from src.config_manager import ConfigManager
 
 
 def generate_mr_description(args):
@@ -110,6 +111,40 @@ def mr_checklist(args):
     print(checklist)
 
 
+def config_init(args):
+    """Initialize configuration file."""
+    config = ConfigManager(args.repo)
+    config.init_config()
+
+
+def config_show(args):
+    """Show current configuration."""
+    config = ConfigManager(args.repo)
+    print(config.show_config())
+
+
+def config_set(args):
+    """Set a configuration value."""
+    config = ConfigManager(args.repo)
+    config.set(args.key, args.value)
+    if config.save_config():
+        print(f"Set {args.key} = {args.value}")
+    else:
+        print("Failed to save configuration")
+        sys.exit(1)
+
+
+def config_get(args):
+    """Get a configuration value."""
+    config = ConfigManager(args.repo)
+    value = config.get(args.key)
+    if value is not None:
+        print(f"{args.key} = {value}")
+    else:
+        print(f"Key '{args.key}' not found in configuration")
+        sys.exit(1)
+
+
 def main():
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
@@ -159,6 +194,33 @@ def main():
     checklist_parser = subparsers.add_parser('checklist', help='Generate MR/PR checklist')
     checklist_parser.add_argument('--repo', default='.', help='Path to repository')
     checklist_parser.set_defaults(func=mr_checklist)
+    
+    # Configuration commands
+    config_parser = subparsers.add_parser('config', help='Manage configuration')
+    config_subparsers = config_parser.add_subparsers(dest='config_command', help='Configuration command')
+    
+    # Config init
+    config_init_parser = config_subparsers.add_parser('init', help='Initialize configuration file')
+    config_init_parser.add_argument('--repo', default='.', help='Path to repository')
+    config_init_parser.set_defaults(func=config_init)
+    
+    # Config show
+    config_show_parser = config_subparsers.add_parser('show', help='Show current configuration')
+    config_show_parser.add_argument('--repo', default='.', help='Path to repository')
+    config_show_parser.set_defaults(func=config_show)
+    
+    # Config set
+    config_set_parser = config_subparsers.add_parser('set', help='Set a configuration value')
+    config_set_parser.add_argument('key', help='Configuration key (dot notation)')
+    config_set_parser.add_argument('value', help='Value to set')
+    config_set_parser.add_argument('--repo', default='.', help='Path to repository')
+    config_set_parser.set_defaults(func=config_set)
+    
+    # Config get
+    config_get_parser = config_subparsers.add_parser('get', help='Get a configuration value')
+    config_get_parser.add_argument('key', help='Configuration key (dot notation)')
+    config_get_parser.add_argument('--repo', default='.', help='Path to repository')
+    config_get_parser.set_defaults(func=config_get)
     
     args = parser.parse_args()
     

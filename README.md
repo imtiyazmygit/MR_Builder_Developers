@@ -130,6 +130,38 @@ branch_name = manager.suggest_branch_name(
 print(f"Suggested: {branch_name}")
 ```
 
+## Configuration
+
+MR Builder supports a configuration file (`.mrbuilder.json`) to customize its behavior:
+
+### Initialize Configuration
+
+```bash
+# Create a new configuration file with defaults
+python mr_builder_cli.py config init
+
+# View current configuration
+python mr_builder_cli.py config show
+
+# Get a specific configuration value
+python mr_builder_cli.py config get commit.max_subject_length
+
+# Set a configuration value
+python mr_builder_cli.py config set commit.max_subject_length 80
+```
+
+### Configuration Options
+
+See `.mrbuilder.json.example` for a complete example. Key configuration options:
+
+- **commit.max_subject_length**: Maximum length for commit subject (default: 72)
+- **commit.max_body_line_length**: Maximum line length for commit body (default: 100)
+- **commit.allowed_types**: List of allowed commit types
+- **branch.naming_pattern**: Pattern for branch names (default: "feature/{description}")
+- **branch.include_issue_number**: Whether to include issue numbers in branch names
+- **mr.default_reviewers**: Default reviewers for MRs/PRs
+- **mr.checklist_items**: Customizable checklist items for code review
+
 ## Conventional Commits
 
 This tool follows the [Conventional Commits](https://www.conventionalcommits.org/) specification:

@@ -45,3 +45,6 @@ htmlcov/
 *.log
 *.tmp
 .cache/
+
+# MR Builder config (user-specific)
+.mrbuilder.json

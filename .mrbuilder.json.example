@@ -1,0 +1,35 @@
+{
+  "commit": {
+    "max_subject_length": 72,
+    "max_body_line_length": 100,
+    "allowed_types": [
+      "feat",
+      "fix",
+      "docs",
+      "style",
+      "refactor",
+      "test",
+      "chore",
+      "perf",
+      "ci",
+      "build"
+    ]
+  },
+  "branch": {
+    "naming_pattern": "feature/{description}",
+    "include_issue_number": true
+  },
+  "mr": {
+    "default_reviewers": [],
+    "required_labels": [],
+    "checklist_items": [
+      "Code follows project style guidelines",
+      "All tests pass",
+      "Documentation is updated",
+      "No debug code or console logs",
+      "Changes are backward compatible",
+      "Security considerations addressed",
+      "Performance impact evaluated"
+    ]
+  }
+}
