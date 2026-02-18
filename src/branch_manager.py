@@ -4,7 +4,7 @@ Branch Manager - Helps manage Git branches and workflows
 
 import os
 import subprocess
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Any
 
 
 class BranchManager:
@@ -126,7 +126,7 @@ class BranchManager:
         else:
             return f"feature/{description}"
     
-    def get_branch_info(self) -> Dict[str, any]:
+    def get_branch_info(self) -> Dict[str, Any]:
         """
         Get information about the current branch.
         
