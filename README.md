@@ -202,6 +202,27 @@ See the [examples](./examples) directory for more usage examples:
 - `example_usage.py` - Complete Python API examples
 - `example_workflow.md` - Example workflow for using MR Builder
 
+## Testing
+
+Run the test suite to verify functionality:
+
+```bash
+# Run all tests
+python tests/run_tests.py
+
+# Run specific test file
+python -m unittest tests.test_commit_formatter
+
+# Run with verbose output
+python tests/run_tests.py -v
+```
+
+All tests should pass. The test suite covers:
+- MR/PR description generation
+- Commit message formatting and validation
+- Branch management utilities
+- Configuration management
+
 ## Contributing
 
 Contributions are welcome! Please follow these steps:
